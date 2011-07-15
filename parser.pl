@@ -7,13 +7,13 @@ my $username = $ENV{'USER'};
 my $tempfile = "/tmp/iceberg-$username.xml";
 
 my $simple = XML::Simple->new();
-my $tree = $simple->XMLin($tempfile);
+my $tree = $simple->XMLin("$tempfile",ForceArray => 1);
+#my $tree = $simple->XMLin($tempfile);
 
-#print Dumper($tree);
 #print Dumper($tree);
 
 #get staffing count for talking agents
-foreach my $analyst (@{$tree->{agentstatus}->{talking}->{talkinganalyst}}) {
+foreach my $analyst (@{$tree->{agentstatus}->[0]->{talking}->[0]->{talkinganalyst}}) {
 	my @skills = split /,/, $analyst->{callskills};
 	foreach my $skill (@skills) {
 		if ($staffedskills{$skill}) {
@@ -30,7 +30,7 @@ foreach my $analyst (@{$tree->{agentstatus}->{talking}->{talkinganalyst}}) {
 }
 
 #get staffing count for idle agents
-foreach my $analyst (@{$tree->{agentstatus}->{notready}->{notreadyanalyst}}) {
+foreach my $analyst (@{$tree->{agentstatus}->[0]->{notready}->[0]->{notreadyanalyst}}) {
 	my @skills = split /,/, $analyst->{callskills};
 	foreach my $skill (@skills) {
 		if ($staffedskills{$skill}) {
@@ -47,7 +47,7 @@ foreach my $analyst (@{$tree->{agentstatus}->{notready}->{notreadyanalyst}}) {
 }
 
 #get staffing count for ready agents
-foreach my $analyst (@{$tree->{agentstatus}->{ready}->{readyanalyst}}) {
+foreach my $analyst (@{$tree->{agentstatus}->[0]->{ready}->[0]->{readyanalyst}}) {
 	my @skills = split /,/, $analyst->{callskills};
 	foreach my $skill (@skills) {
 		if ($staffedskills{$skill}) {
@@ -86,6 +86,3 @@ foreach my $skill (sort keys %staffedskills) {
 	printf ("%-27s %5d %5d %5d %5d\n",$skill,$staffedcount,$readycount,$talkingcount,$idlecount);
 }
 
-#print "This has been a git test.\n";
-
-print "And yet another thing.\n";
