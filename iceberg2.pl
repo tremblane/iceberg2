@@ -105,6 +105,8 @@ foreach my $skill (sort keys %staffedskills) {
 		case /GTRC_SPANISH/ { $group=" SPANISH"; }
 		case /GTRC_LWR/ { $group=" LWR"; }
 		case /GTRC_DR_DESKTOP/ { $group=" DR_DESKTOP"; }
+		case /GTRC_MAND_ENG/ { $group=" MANDARIN_ENG"; }
+		case /GTRC_MAND/ { $group=" MANDARIN"; }
 		else	{ $group=$skill; }
 	}
 
