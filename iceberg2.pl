@@ -132,10 +132,10 @@ printf ("%-22s %5d %5d %5d %5d\n",$group,$grouped_staffed{$group},$grouped_ready
 
 #print holding calls
 print "\n";
-print "Queue          Calls  Time\n";
-print "=====          =====  =====\n";
+print "Queue            Calls  Time\n";
+print "=====            =====  =====\n";
 foreach my $queue (@{$tree->{queuestatus}->[0]->{queues}}) {
-	printf("%-13s %5s %7s\n",$queue->{queuename},$queue->{queuenumber},$queue->{queuetime});
+	printf("%-15s %5s %7s\n",$queue->{queuename},$queue->{queuenumber},$queue->{queuetime});
 }
 
 print "\n"; #trailing blank line
