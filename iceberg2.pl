@@ -130,3 +130,13 @@ foreach my $group (sort keys %grouped_staffed) {
 printf ("%-22s %5d %5d %5d %5d\n",$group,$grouped_staffed{$group},$grouped_ready{$group},$grouped_talking{$group},$grouped_idle{$group});
 }
 
+#print holding calls
+print "\n";
+print "Queue          Calls  Time\n";
+print "=====          =====  =====\n";
+foreach my $queue (@{$tree->{queuestatus}->[0]->{queues}}) {
+	printf("%-13s %5s %7s\n",$queue->{queuename},$queue->{queuenumber},$queue->{queuetime});
+}
+
+print "\n"; #trailing blank line
+
