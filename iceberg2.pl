@@ -7,7 +7,6 @@ use Data::Dumper;
 use Switch;
 
 my $username = $ENV{'USER'};
-#my $url = "http://wwwin-tools.cisco.com/GTRC/ICE/servlet/iceberg5.obtainMasterData?agentID=$username";
 my $url = "http://wwwin.cisco.com/cgi-bin/support/tools/iceberg6/iceberg6_buildxml.cgi?agentid=$username";
 my $tempfile = "/tmp/iceberg-$username.xml";
 
@@ -18,22 +17,7 @@ print "\n";
 chomp($password);
 system("stty echo");
 
-my $mech = WWW::Mechanize->new();
-$mech->credentials( $username => $password );
-#print "Fetching page\n";
-print "\n";
-eval { $mech->get($url); };
-
-#$html_page = $mech->content;
-#print "$html_page\n";
-
-if (-e $tempfile) {
-	unlink ($tempfile);
-}
-
-open (OUT, ">$tempfile");
-print OUT $mech->content;
-close(OUT);
+get_page();
 
 my $simple = XML::Simple->new();
 my $tree = $simple->XMLin("$tempfile",ForceArray => 1);
@@ -145,3 +129,28 @@ foreach my $queue (@{$tree->{queuestatus}->[0]->{queues}}) {
 
 print "\n"; #trailing blank line
 
+
+#===  FUNCTION  ================================================================
+#         NAME: get_page
+#      PURPOSE: 
+#   PARAMETERS: none
+#      RETURNS: none
+#  DESCRIPTION: retrieves XML from iceberg
+#       THROWS: no exceptions
+#     COMMENTS: none
+#     SEE ALSO: n/a
+#===============================================================================
+sub get_page {
+	my $mech = WWW::Mechanize->new();
+	$mech->credentials( $username => $password );
+	eval { $mech->get($url); };
+
+	#if tempfile exists, delete it first
+	if (-e $tempfile) {
+		unlink ($tempfile);
+	}
+
+	open (OUT, ">$tempfile");
+	print OUT $mech->content;
+	close(OUT);
+} ## --- end sub get_page
