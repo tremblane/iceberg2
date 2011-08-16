@@ -123,6 +123,11 @@ foreach my $skill (sort keys %staffedskills) {
 	if ($readyskills{$skill}) { $grouped_ready{$group} += $readyskills{$skill}; }
 }
 
+#timestamp
+@time = split(/ /, localtime());
+print "$time[3] - $time[0] $time[1] $time[2] $time[4]\n";
+print "\n";
+
 #print out the grouped staffing numbers
 print "                        Staff Avail  Talk  Idle\n";
 print "                        ===== ===== ===== =====\n";
