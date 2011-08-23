@@ -143,6 +143,7 @@ sub parse_and_display {
 			case /GTRC_DR_DESKTOP/ { $group=" DR_DESKTOP"; }
 			case /GTRC_MAND_ENG/ { $group=" MANDARIN_ENG"; }
 			case /GTRC_MAND/ { $group=" MANDARIN"; }
+			case /GTRC_WARROOM/ { $group=" WARROOM"; }
 			else	{ $group=$skill; }
 		}
 
