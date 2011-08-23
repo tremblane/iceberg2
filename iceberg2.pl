@@ -1,3 +1,18 @@
+#!/usr/bin/perl 
+#===============================================================================
+#         FILE: iceberg2.pl
+#
+#        USAGE: ./iceberg2.pl  
+#
+#  DESCRIPTION: Displays phone staffing and call information from Iceberg in
+#		a terminal.
+#       AUTHOR: jadew
+#      VERSION: 1.0
+#===============================================================================
+
+use strict;
+use warnings;
+
 #!/usr/local/bin/perl
 
 use lib '/ws/jadew-rtp/perllib';
