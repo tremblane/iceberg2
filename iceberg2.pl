@@ -162,7 +162,7 @@ sub parse_and_display {
 
 	#timestamp
 	@time = split(/ /, localtime());
-	print "$time[3] - $time[0] $time[1] $time[2] $time[4]\n";
+	print "$time[4]\n";
 	print "\n";
 
 	#print out the grouped staffing numbers
