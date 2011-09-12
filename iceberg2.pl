@@ -161,9 +161,9 @@ sub parse_and_display {
 	}
 
 	#timestamp
-	@time = split(/ /, localtime());
-	print "$time[4]\n";
-	print "\n";
+	#@time = split(/ /, localtime());
+	#print "$time[4]\n";
+	#print "\n";
 
 	#print out the grouped staffing numbers
 	print "                        Staff Avail  Talk  Idle\n";
