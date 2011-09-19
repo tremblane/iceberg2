@@ -144,6 +144,7 @@ sub parse_and_display {
 			case /GTRC_MAND_ENG/ { $group=" MANDARIN_ENG"; }
 			case /GTRC_MAND/ { $group=" MANDARIN"; }
 			case /GTRC_WARROOM/ { $group=" WARROOM"; }
+			case /GTRC_CiscoTV/ { $group=" CiscoTV"; }
 			else	{ $group=$skill; }
 		}
 
