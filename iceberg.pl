@@ -17,7 +17,7 @@ print "\n";
 chomp($password);
 system("stty echo");
 
-
+# main loop
 while ( "forever" ) {
 	get_page();
 	system('clear');
@@ -85,6 +85,7 @@ sub parse_and_display {
 			} else {
 				$staffedskills{$skill} = 1;
 			}
+			# increment count if talking on another skill
 			if ($skill ne $analyst->{talkingon}) {
 				if ($toasskills{$skill}) {
 					$toasskills{$skill} += 1;
@@ -134,7 +135,7 @@ sub parse_and_display {
 		}
 	}
 
-	#combine skills into groups
+	#combine 1/2/3 skills into groups
 	foreach my $skill (sort keys %staffedskills) {
 		#set $group based on $skill
 		switch ($skill) {
@@ -165,23 +166,19 @@ sub parse_and_display {
 		if (!defined($grouped_toas{$group})) { $grouped_toas{$group}=0; }
 
 		#add to running total for $group
-		$grouped_staffed{$group} += $staffedskills{$skill}; #staffedskills should never be null
+		$grouped_staffed{$group} += $staffedskills{$skill}; #staffedskills should never be null (famous last words)
 		if ($talkingskills{$skill}) { $grouped_talking{$group} += $talkingskills{$skill}; }
 		if ($idleskills{$skill}) { $grouped_idle{$group} += $idleskills{$skill}; }
 		if ($readyskills{$skill}) { $grouped_ready{$group} += $readyskills{$skill}; }
 		if ($toasskills{$skill}) { $grouped_toas{$group} += $toasskills{$skill}; }
 	}
 
-	#timestamp
-	#@time = split(/ /, localtime());
-	#print "$time[4]\n";
-	#print "\n";
-
 	#print out the grouped staffing numbers
 	print "                        Staff Avail  Idle  Talk (TOAS)\n";
 	print "                        ===== ===== ===== =============\n";
 	foreach my $group (sort keys %grouped_staffed) {
 		printf ("%-22s %5d %5d %5d %5d",$group,$grouped_staffed{$group},$grouped_ready{$group},$grouped_idle{$group},$grouped_talking{$group});
+		#only print TOAS if TOAS not zero
 		if ($grouped_toas{$group} > 0) {
 			printf ("  (%2d)\n",$grouped_toas{$group});
 		} else {
