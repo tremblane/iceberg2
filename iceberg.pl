@@ -67,10 +67,12 @@ sub parse_and_display {
 	#undefine variables to reset for each loop
 	undef %staffedskills;
 	undef %talkingskills;
+	undef %toasskills; #talking on another skill
 	undef %idleskills;
 	undef %readyskills;
 	undef %grouped_staffed;
 	undef %grouped_talking;
+	undef %grouped_toas; #talkig on another skill
 	undef %grouped_idle;
 	undef %grouped_ready;
 
@@ -82,6 +84,13 @@ sub parse_and_display {
 				$staffedskills{$skill} += 1;
 			} else {
 				$staffedskills{$skill} = 1;
+			}
+			if ($skill ne $analyst->{talkingon}) {
+				if ($toasskills{$skill}) {
+					$toasskills{$skill} += 1;
+				} else {
+					$toasskills{$skill} = 1;
+				}
 			}
 		}
 		if ($talkingskills{$analyst->{talkingon}}) {
@@ -153,12 +162,14 @@ sub parse_and_display {
 		if (!defined($grouped_talking{$group})) { $grouped_talking{$group}=0; }
 		if (!defined($grouped_idle{$group})) { $grouped_idle{$group}=0; }
 		if (!defined($grouped_ready{$group})) { $grouped_ready{$group}=0; }
+		if (!defined($grouped_toas{$group})) { $grouped_toas{$group}=0; }
 
 		#add to running total for $group
 		$grouped_staffed{$group} += $staffedskills{$skill}; #staffedskills should never be null
 		if ($talkingskills{$skill}) { $grouped_talking{$group} += $talkingskills{$skill}; }
 		if ($idleskills{$skill}) { $grouped_idle{$group} += $idleskills{$skill}; }
 		if ($readyskills{$skill}) { $grouped_ready{$group} += $readyskills{$skill}; }
+		if ($toasskills{$skill}) { $grouped_toas{$group} += $toasskills{$skill}; }
 	}
 
 	#timestamp
@@ -167,10 +178,10 @@ sub parse_and_display {
 	#print "\n";
 
 	#print out the grouped staffing numbers
-	print "                        Staff Avail  Talk  Idle\n";
-	print "                        ===== ===== ===== =====\n";
+	print "                        Staff Avail  Idle  Talk (TOAS)\n";
+	print "                        ===== ===== ===== =============\n";
 	foreach my $group (sort keys %grouped_staffed) {
-	printf ("%-22s %5d %5d %5d %5d\n",$group,$grouped_staffed{$group},$grouped_ready{$group},$grouped_talking{$group},$grouped_idle{$group});
+	printf ("%-22s %5d %5d %5d %5d (%2d)\n",$group,$grouped_staffed{$group},$grouped_ready{$group},$grouped_idle{$group},$grouped_talking{$group},$grouped_toas{$group});
 	}
 
 	#print holding calls
