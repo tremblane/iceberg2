@@ -181,7 +181,12 @@ sub parse_and_display {
 	print "                        Staff Avail  Idle  Talk (TOAS)\n";
 	print "                        ===== ===== ===== =============\n";
 	foreach my $group (sort keys %grouped_staffed) {
-	printf ("%-22s %5d %5d %5d %5d (%2d)\n",$group,$grouped_staffed{$group},$grouped_ready{$group},$grouped_idle{$group},$grouped_talking{$group},$grouped_toas{$group});
+		printf ("%-22s %5d %5d %5d %5d",$group,$grouped_staffed{$group},$grouped_ready{$group},$grouped_idle{$group},$grouped_talking{$group});
+		if ($grouped_toas{$group} > 0) {
+			printf ("  (%2d)\n",$grouped_toas{$group});
+		} else {
+			print "\n";
+		}
 	}
 
 	#print holding calls
