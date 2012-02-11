@@ -7,15 +7,8 @@ use Data::Dumper;
 use Switch;
 
 my $username = $ENV{'USER'};
-my $url = "http://wwwin.cisco.com/cgi-bin/support/tools/iceberg6/iceberg6_buildxml.cgi?agentid=$username";
+my $url = "http://wwwin.cisco.com/pcgi-bin/it/ice6/core/iceberg6/iceberg6_buildxml.cgi?agentid=$username"; 
 my $tempfile = "/tmp/iceberg-$username.xml";
-
-print "CEC password for $username: ";
-system("stty -echo");
-my $password = <STDIN>;
-print "\n";
-chomp($password);
-system("stty echo");
 
 # main loop
 while ( "forever" ) {
@@ -36,7 +29,6 @@ while ( "forever" ) {
 #===============================================================================
 sub get_page {
 	my $mech = WWW::Mechanize->new();
-	$mech->credentials( $username => $password );
 	eval { $mech->get($url); };
 
 	#if tempfile exists, delete it first
