@@ -148,6 +148,11 @@ sub parse_and_display {
 			case /GTRC_WARROOM/ { $group=" WARROOM"; }
 			case /GTRC_CiscoTV/ { $group=" CiscoTV"; }
 			case /GTRC_MAC/ { $group=" MAC"; }
+			case /GTRC_INDIA_DESKTOP/ { $group=" INDIA DESKTOP"; }
+			case /GTRC_INDIA_MAIN/ { $group=" INDIA MAIN"; }
+			case /GTRC_INDIA_MMAIL/ { $group=" INDIA MMAIL"; }
+			case /GTRC_INDIA_T2D/ { $group=" INDIA T2D"; }
+			case /GTRC_INDIA_WEBEX/ { $group=" INDIA WEBEX"; }
 			else	{ $group=$skill; }
 		}
 
